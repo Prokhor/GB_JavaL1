@@ -14,11 +14,11 @@ public class MainClass {
 
         // 1.
         do {
-            //playGame();
+            playGame();
         } while (false);
 
         // 2.
-        guessTheWord();
+        //guessTheWord();
     }
 
     /* Написать программу, которая загадывает случайное число от 0 до 9, и пользователю дается 3 попытки угадать это число.
@@ -33,12 +33,18 @@ public class MainClass {
             int answer = sc.nextInt();
             if (hidden > answer) {
                 counter--;
-                System.out.printf("Загаданное число больше! Осталось попыток: %d\n", counter);
+                System.out.printf("Загаданное число больше! %s",
+                        counter > 0 ?
+                                String.format("Попыток осталось: %d\n", counter) :
+                                "Попыток больше не осталось, число не угадано!\n");
             } else if (hidden < answer) {
                 counter--;
-                System.out.printf("Загаданное число меньше! Осталось попыток: %d\n", counter);
+                System.out.printf("Загаданное число меньше! %s",
+                        counter > 0 ?
+                                String.format("Попыток осталось: %d\n", counter) :
+                                "Попыток больше не осталось, число не угадано!\n");
             } else {
-                System.out.println("Ты угадал, поздравляем!\n");
+                System.out.print("Ты угадал, поздравляем!\n");
                 counter = 0;
             }
         } while (counter > 0);
