@@ -1,5 +1,6 @@
 package gb.l4hw;
 
+import java.lang.reflect.WildcardType;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ public class XOGame {
     private final static char DOT_X = 'X';  // символ 1 игрока
     private final static char DOT_O = 'O';  // символ 2 игрока
     private final static char DOT_EMPTY = '\u2022'; // символ пустой клетки
+    private final static char WINNER_LINE_CHAR = '*';   // строка победной линии для проверки
     private static char[][] playingFieldMap;    // игровое поле
     private static char humanSide;  // за кого играет человек
     private static String winnerLine = "";   // линия победителя для проверки
@@ -45,7 +47,7 @@ public class XOGame {
         System.out.println("Начнём игру!");
 
         while (true) {
-            if (humanSide == 'X') {
+            if (humanSide == DOT_X) {
                 humanTurn(humanSide);
                 if (hasWinner(humanSide)) {
                     System.out.println("Вы победили, поздравляем!!!");
@@ -56,17 +58,17 @@ public class XOGame {
                     break;
                 }
                 aiTurn();
-                if (hasWinner('O')) {
+                if (hasWinner(DOT_O)) {
                     System.out.println("Компьютер победил...");
                     break;
                 }
             } else {
                 aiTurn();
-                if (hasWinner('X')) {
+                if (hasWinner(DOT_X)) {
                     System.out.println("Компьютер победил...");
                     break;
                 }
-                if (isFull('X')){
+                if (isFull(DOT_X)){
                     System.out.println("Ничья!");
                     break;
                 }
@@ -76,7 +78,7 @@ public class XOGame {
                     break;
                 }
             }
-            if (isFull('O')){
+            if (isFull(DOT_O)){
                 System.out.println("Ничья!");
                 break;
             }
@@ -88,7 +90,7 @@ public class XOGame {
      */
     private static void getWinnerLine(){
         for (int i = 0; i < score; i++) {
-            winnerLine += "*";
+            winnerLine += WINNER_LINE_CHAR;
         }
     }
 
@@ -164,10 +166,10 @@ public class XOGame {
      */
     private static void aiTurn() {
         char aiSide;
-        if (humanSide == 'X') {
-            aiSide = 'O';
+        if (humanSide == DOT_X) {
+            aiSide = DOT_O;
         } else {
-            aiSide = 'X';
+            aiSide = DOT_X;
         }
         int x;
         int y;
@@ -268,16 +270,16 @@ public class XOGame {
             StringBuilder vLine = new StringBuilder();
             for (int l = 0; l < score; l++) {
                 if (currentMap[k][l] == c){
-                    hLine.append("*");
+                    hLine.append(WINNER_LINE_CHAR);
                 }
                 if (currentMap[l][k] == c){
-                    vLine.append("*");
+                    vLine.append(WINNER_LINE_CHAR);
                 }
                 if (k == l && currentMap[k][l] == c){
-                    mdLine.append("*");
+                    mdLine.append(WINNER_LINE_CHAR);
                 }
                 if (k + l == score - 1 && currentMap[k][l] == c){
-                    sdLine.append("*");
+                    sdLine.append(WINNER_LINE_CHAR);
                 }
             }
             if (winnerLine.equals(hLine.toString()) || winnerLine.equals(vLine.toString())){
@@ -304,16 +306,16 @@ public class XOGame {
             StringBuilder vLine = new StringBuilder();
             for (int l = 0; l < score; l++) {
                 if (currentMap[k][l] == c || currentMap[k][l] == DOT_EMPTY){
-                    hLine.append("*");
+                    hLine.append(WINNER_LINE_CHAR);
                 }
                 if (currentMap[l][k] == c || currentMap[l][k] == DOT_EMPTY){
-                    vLine.append("*");
+                    vLine.append(WINNER_LINE_CHAR);
                 }
                 if (k == l && currentMap[k][l] == c || k == l && currentMap[k][l] == DOT_EMPTY){
-                    mdLine.append("*");
+                    mdLine.append(WINNER_LINE_CHAR);
                 }
                 if (k + l == score - 1 && currentMap[k][l] == c || k + l == score - 1 && currentMap[k][l] == DOT_EMPTY){
-                    sdLine.append("*");
+                    sdLine.append(WINNER_LINE_CHAR);
                 }
             }
             if (winnerLine.equals(hLine.toString()) || winnerLine.equals(vLine.toString())){
