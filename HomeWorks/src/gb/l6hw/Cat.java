@@ -2,7 +2,7 @@ package gb.l6hw;
 
 public class Cat extends Animal {
 
-    protected static int catsCount;
+    public static int catsCount;
 
     private final int MAX_RUN_DISTANCE = 200;
     private final int MAX_SWIM_DISTANCE = 0;

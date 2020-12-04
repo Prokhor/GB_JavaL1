@@ -2,7 +2,7 @@ package gb.l6hw;
 
 public class Dog extends Animal{
 
-    protected static int dogsCount;
+    public static int dogsCount;
 
     private boolean fightingDog;
 
